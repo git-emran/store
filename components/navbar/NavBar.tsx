@@ -1,26 +1,24 @@
-
-import Container from '../global/Container'
-import CartButton from './CartButton'
-import Logo from './Logo'
-import NavSearch from './NavSearch'
-import DarkMode from './DarkMode'
-import LinksDropdown from './LinksDropdown'
+import Container from "../global/Container";
+import CartButton from "./CartButton";
+import Logo from "./Logo";
+import NavSearch from "./NavSearch";
+import DarkMode from "./DarkMode";
+import LinksDropdown from "./LinksDropdown";
 
 function Navbar() {
   return (
-   <nav className='border-b'>
-    <Container ClassName="flex flex-col sm:flex-row sm:justify-between sm:items-center flex-wrap py-8">
-        <Logo/>
-        <NavSearch/>
-        <div className='flex gap-4 items-center'>
-            <CartButton/>
-            <DarkMode/>
-            <LinksDropdown/>
+    <nav className="border-b">
+      <Container ClassName="flex flex-col sm:flex-row sm:justify-between sm:items-center flex-wrap py-8">
+        <Logo />
+        <NavSearch />
+        <div className="flex gap-4 items-center">
+          <CartButton />
+          <DarkMode />
+          <LinksDropdown />
         </div>
-
-    </Container>
-   </nav>
-  )
+      </Container>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;
