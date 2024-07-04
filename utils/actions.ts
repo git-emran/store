@@ -1,24 +1,39 @@
-import db from '@/utils/db'
-import { PrismaClient } from '@prisma/client';
-
-
+import db from "@/utils/db";
+import { PrismaClient } from "@prisma/client";
+import { redirect } from "next/dist/server/api-utils";
 
 export const fetchFeaturedProducts = async () => {
-    const products = await db.product.findMany({
-        where: {
-            featured: true,
-        },
-        
-    });
+  const products = await db.product.findMany({
+    where: {
+      featured: true,
+    },
+  });
 
-    return products;
+  return products;
 };
 
-export const fetchAllProducts =  () => {
+export const fetchAllProducts = ({ search = "" }: { search?: string } = {}) => {
+  return db.product.findMany({
+    where: {
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { company: { contains: search, mode: "insensitive" } },
+      ],
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+};
 
-    return db.product.findMany({
-        orderBy: {
-            createdAt: 'desc',
-        }
-    })
-}
+export const fetchSingleProduct = async (productId: string) => {
+  const product = await db.product.findUnique({
+    where: {
+      id: productId
+    }
+  });
+
+  // if (!product) redirect('/products');
+  return product;
+
+};
