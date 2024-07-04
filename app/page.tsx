@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button"
+import FeaturedProducts from "@/components/home/FeaturedProducts";
+import Hero from "@/components/home/Hero";
 
-function HomePage(){
+function HomPage() {
   return (
-    <div>
-      <h1 className="text-3xl">HomePage</h1>
-      <Button variant="secondary" size="lg" className="capitalize m-8">click Me</Button>
-    </div>
+    <>
+      <Hero />
+      <FeaturedProducts />
+    </>
   );
 }
-
-export default HomePage
+export default HomPage;
