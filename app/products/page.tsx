@@ -1,5 +1,5 @@
 import ProductsContainer from '@/components/products/ProductsContainer';
-import React from 'react'
+import React, { Suspense } from 'react'
 
 function ProductsPage({searchParams}:{searchParams:{layout?:string, search?:string}}) {
 
@@ -7,8 +7,10 @@ function ProductsPage({searchParams}:{searchParams:{layout?:string, search?:stri
   const search = searchParams.search || '';
    
    return (
-    <ProductsContainer layout={layout} search={search}/>
-   )
+     <Suspense>
+       <ProductsContainer layout={layout} search={search} />
+     </Suspense>
+   );
 }
 
 export default ProductsPage;
