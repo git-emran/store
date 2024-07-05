@@ -4,10 +4,11 @@ import Logo from "./Logo";
 import NavSearch from "./NavSearch";
 import DarkMode from "./DarkMode";
 import LinksDropdown from "./LinksDropdown";
+import { Suspense } from "react";
 
 function Navbar() {
   return (
-    <nav className="border-b">
+    <Suspense>
       <Container ClassName="flex flex-col sm:flex-row sm:justify-between sm:items-center flex-wrap py-8">
         <Logo />
         <NavSearch />
@@ -17,7 +18,7 @@ function Navbar() {
           <LinksDropdown />
         </div>
       </Container>
-    </nav>
+    </Suspense>
   );
 }
 
