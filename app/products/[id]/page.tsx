@@ -22,6 +22,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
               src={image}
               alt={name}
               fill
+              unoptimized
               sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw,33vw"
               priority
               className="w-full rounded-md object-cover"
