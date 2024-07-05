@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 function ReviewsPage() {
   return (
-    <div>
-      About
-    </div>
-  )
+    
+      <Suspense> About</Suspense>
+    
+  );
 }
 
 export default ReviewsPage
