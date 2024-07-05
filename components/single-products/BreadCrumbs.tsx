@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-function BreadCrumbs({name}:{name:string}) {
+function BreadCrumbs({ name }: { name: string }) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -25,11 +25,11 @@ function BreadCrumbs({name}:{name:string}) {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-        <BreadcrumbPage className='capitalize text-lg'>{name}</BreadcrumbPage>
+          <BreadcrumbPage className="capitalize text-lg">{name}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
   );
 }
 
-export default BreadCrumbs
+export default BreadCrumbs;

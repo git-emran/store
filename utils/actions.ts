@@ -1,6 +1,5 @@
 import db from "@/utils/db";
-import { PrismaClient } from "@prisma/client";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export const fetchFeaturedProducts = async () => {
   const products = await db.product.findMany({
@@ -29,11 +28,11 @@ export const fetchAllProducts = ({ search = "" }: { search?: string } = {}) => {
 export const fetchSingleProduct = async (productId: string) => {
   const product = await db.product.findUnique({
     where: {
-      id: productId
-    }
+      id: productId,
+    },
   });
-
-  // if (!product) redirect('/products');
+  if (!product) {
+    redirect("/products");
+  }
   return product;
-
 };
