@@ -3,7 +3,7 @@
 import { Input } from "../ui/input";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
 function NavSearch() {
   const searchParams = useSearchParams();
@@ -28,15 +28,17 @@ function NavSearch() {
   }, [searchParams]);
 
   return (
-    <Input
-      placeholder="search"
-      type="search"
-      className="max-w-xs dark:bg-muted"
-      onChange={(e) => {
-        setSearch(e.target.value);
-        handleSearch(e.target.value);
-      }}
-    />
+    <Suspense>
+      <Input
+        placeholder="search"
+        type="search"
+        className="max-w-xs dark:bg-muted"
+        onChange={(e) => {
+          setSearch(e.target.value);
+          handleSearch(e.target.value);
+        }}
+      />
+    </Suspense>
   );
 }
 
