@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { productSchema, validateWithZodSchema } from "./schemas";
 import { imageSchema } from "./schemas";
 import { uploadImage } from "./supabase";
+import { revalidatePath } from "next/cache";
+import { deleteImage } from "./supabase";
 
 const getAuthUser = async () => {
   const user = await currentUser();
@@ -17,9 +19,6 @@ const getAdminUser = async () => {
   if (user.id !== process.env.ADMIN_USER_ID) redirect("/");
   return user;
 };
-
-
-
 
 const renderError = (error: unknown): { message: string } => {
   console.log(error);
@@ -97,4 +96,65 @@ export const fetchAdminProducts = async () => {
     },
   });
   return products;
+};
+
+export const deleteProductAction = async (prevState: { productId: string }) => {
+  const { productId } = prevState;
+  await getAdminUser();
+
+  try {
+    await db.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+
+    await deleteImage(productId);
+    revalidatePath("/admin/products");
+    return { message: "product removed" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+export const fetchAdminProductDetails = async (productId: string) => {
+  await getAdminUser();
+  const product = await db.product.findUnique({
+    where: {
+      id: productId,
+    },
+  });
+  if (!product) redirect("/admin/products");
+  return product;
+};
+
+export const updateProductAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  await getAdminUser();
+  try {
+    const productId = formData.get("id") as string;
+    const rawData = Object.fromEntries(formData);
+
+    const validatedFields = validateWithZodSchema(productSchema, rawData);
+
+    await db.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        ...validatedFields,
+      },
+    });
+    revalidatePath(`/admin/products/${productId}/edit`);
+    return { message: "Product updated successfully" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+export const updateProductImageAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  return { message: "Product Image updated successfully" };
 };
