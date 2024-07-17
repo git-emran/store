@@ -5,6 +5,9 @@ import PriceInput from "@/components/form/PriceInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import { SubmitButton } from "@/components/form/Buttons";
 import CheckboxInput from "@/components/form/CheckBoxInput";
+import ImageInputContainer from "@/components/form/ImageInputContainer";
+import { updateProductImageAction } from "@/utils/actions";
+
 async function EditProductPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const product = await fetchAdminProductDetails(id);
@@ -14,6 +17,18 @@ async function EditProductPage({ params }: { params: { id: string } }) {
       <h1 className="text-2xl font-semibold mb-8 capitalize">update product</h1>
       <div className="border p-8 rounded-md">
         {/* Image Input Container */}
+        <div className="border p-8 rounded-md">
+          {/* Image Input Container */}
+          <ImageInputContainer
+            action={updateProductImageAction}
+            name={name}
+            image={product.image}
+            text="update image"
+          >
+            <input type="hidden" name="id" value={id} />
+            <input type="hidden" name="url" value={product.image} />
+          </ImageInputContainer>
+        </div>
         <FormContainer action={updateProductAction}>
           <div className="grid gap-4 md:grid-cols-2 my-4">
             <input type="hidden" name="id" value={id} />
@@ -44,6 +59,7 @@ async function EditProductPage({ params }: { params: { id: string } }) {
               defaultChecked={featured}
             />
           </div>
+
           <SubmitButton text="update product" className="mt-8" />
         </FormContainer>
       </div>
